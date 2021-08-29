@@ -8,6 +8,13 @@ const config = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "output"),
   },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "output"),
+    },
+    compress: true,
+    port: 3000,
+  },
   module: {
     rules: [
       {
@@ -31,6 +38,10 @@ const config = {
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(jpe?g|png|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        use: "base64-inline-loader?limit=1000&name=[name].[ext]",
       },
     ],
   },
