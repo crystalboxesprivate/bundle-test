@@ -18,20 +18,9 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: "esbuild-loader",
-        options: {
-          loader: "jsx", // Remove this if you're not using JSX
-          target: "es2015", // Syntax to compile to (see options below for possible values)
-        },
-      },
-      {
         test: /\.ts(x)?$/,
-        loader: "esbuild-loader",
-        options: {
-          loader: "tsx",
-          target: "es2015",
-        },
+        loader: "ts-loader",
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
