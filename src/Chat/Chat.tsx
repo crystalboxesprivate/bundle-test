@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import classes from "./Chat.module.scss";
 import { MessageLeft, MessageRight } from "./Message";
 import TextInput from "./TextInput";
-import { Box, CircularProgress, IconButton, Paper } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { getMessages } from "./apiExample";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import IconButton from "@material-ui/core/IconButton";
 
 const Chat: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [messages, setMessages] = useState<any[]>(() => []);

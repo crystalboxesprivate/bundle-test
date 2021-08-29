@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ChatSupportButton from "./ChatSupportButton";
 import Chat from "./Chat";
 import classes from "./App.module.scss";

@@ -1,10 +1,11 @@
 import React from "react";
-import { TextField, Button } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import classes from "./TextInput.module.scss";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const TextInput: React.FC<{ onSubmit: (message: string) => void }> = ({
-  onSubmit
+  onSubmit,
 }) => {
   return (
     <form

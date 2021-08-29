@@ -1,5 +1,5 @@
+import Avatar from "@material-ui/core/Avatar";
 import React from "react";
-import { Avatar } from "@material-ui/core";
 import classes from "./Message.module.scss";
 
 //avatarが左にあるメッセージ（他人）
