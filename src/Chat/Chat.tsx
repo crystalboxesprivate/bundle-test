@@ -1,43 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./Chat.module.scss";
 import { MessageLeft, MessageRight } from "./Message";
 import TextInput from "./TextInput";
-import { Box, IconButton, Paper } from "@material-ui/core";
+import { Box, CircularProgress, IconButton, Paper } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import { getMessages } from "./apiExample";
+
 const Chat: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const [messages, setMessages] = useState<any[]>(() => []);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (messages.length !== 0) {
+      return;
+    }
+    setLoading(true);
+
+    getMessages().then((x) => {
+      setMessages(x);
+      setLoading(false);
+    });
+  }, [messages]);
+
   return (
     <div className={classes.relative}>
       <div className={classes.container}>
         <Paper className={classes.paper}>
           <Paper id="style-1" className={classes.messagesBody}>
-            <MessageLeft
-              message="あめんぼあかいなあいうえお"
-              timestamp="MM/DD 00:00"
-              photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-              displayName=""
-              avatarDisp={true}
-            />
-            <MessageLeft
-              message="xxxxxhttps://yahoo.co.jp xxxxxxxxxあめんぼあかいなあいうえおあいうえおかきくけこさぼあかいなあいうえおあいうえおかきくけこさぼあかいなあいうえおあいうえおかきくけこさいすせそ"
-              timestamp="MM/DD 00:00"
-              photoURL=""
-              displayName="テスト"
-              avatarDisp={false}
-            />
-            <MessageRight
-              message="messageRあめんぼあかいなあいうえおあめんぼあかいなあいうえおあめんぼあかいなあいうえお"
-              timestamp="MM/DD 00:00"
-              photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-              displayName="まさりぶ"
-              avatarDisp={true}
-            />
-            <MessageRight
-              message="messageRあめんぼあかいなあいうえおあめんぼあかいなあいうえお"
-              timestamp="MM/DD 00:00"
-              photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-              displayName="まさりぶ"
-              avatarDisp={false}
-            />
+            {loading && (
+              <Box
+                paddingY={4}
+                width="100%"
+                display="flex"
+                justifyContent="center"
+              >
+                <CircularProgress />
+              </Box>
+            )}
+            {messages.map((x) => {
+              const Component =
+                x.type === "MessageLeft" ? MessageLeft : MessageRight;
+              return <Component key={x.id} {...x} />;
+            })}
           </Paper>
           <Box display="flex">
             <TextInput onSubmit={(message: string) => {}} />
